@@ -39,25 +39,33 @@ export interface BeeProfile {
   name: string;
   age: number;
   role: string;
-  specialization?: string;
-  healthScore?: number;
+  specialization?: string; //optional property
+  healthScore?: number; //optional property
 }
 
 // 4. Typed Functions
 // - Implement 'isLarvaReadyForCocoon'. It should accept 'weight' as a number, and return a boolean.
 //   A larva is ready if its weight is 10.5 milligrams or greater.
-export function isLarvaReadyForCocoon(weight: any): any {
+export function isLarvaReadyForCocoon(weight: number): boolean {
   // TODO: Add type annotations and implementation
+  return weight >= 10.5;
 }
 
 // - Implement 'registerBee'. It should accept a 'profile' of type 'BeeProfile' and return a string.
 //   It should return: "Registered bee: <name> as <role>" (e.g. "Registered bee: Buzz as Forager")
-export function registerBee(profile: any): any {
+export function registerBee(profile: BeeProfile): string {
   // TODO: Add type annotations and implementation
+  return `Registered bee: ${profile.name} as ${profile.role}`;
 }
 
 // - Implement 'calculateAverageWeight'. It should accept an array of numbers ('weights') and return a number.
 //   It should compute and return the average of the weights. If the array is empty, return 0.
-export function calculateAverageWeight(weights: any): any {
+export function calculateAverageWeight(weights: number[]): number {
   // TODO: Add type annotations and implementation
+  if (weights.length === 0) {
+    return 0;
+  }
+
+  const sum = weights.reduce((acc, curr) => acc + curr, 0);
+  return sum / weights.length;
 }
