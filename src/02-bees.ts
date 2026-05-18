@@ -22,17 +22,18 @@ import { BeeProfile, Position3D } from "./01-basics";
 //     - Returns healthScore.
 export class BaseLarva {
   // TODO: Implement fields, constructor and methods
-  readonly age : number;
-  protected healthScore : number;
-  private foodSource : string;
+  readonly age: number;
+  protected healthScore: number; //:?
+  private foodSource: string;
   constructor(age: number, healthScore: number, foodSource: string) {
     this.age = age;
     this.healthScore = healthScore;
     this.foodSource = foodSource;
   }
   eat(amount: number): void {
-     this.healthScore += amount * 2;
+    this.healthScore += amount * 2;
     if (this.healthScore > 100) {
+      //return ?
       this.healthScore = 100;
     }
   }
@@ -55,6 +56,21 @@ export class BaseLarva {
 //     - Returns registryProfile.
 export class AdultBee extends BaseLarva {
   // TODO: Implement AdultBee
+  protected registryProfile: BeeProfile;
+  constructor(
+    age: number,
+    healthScore: number,
+    foodSource: string,
+    profile: BeeProfile,
+  ) {
+    super(age, healthScore, foodSource);
+  }
+  performRole(): string {
+    return `Bee ${this.registryProfile.name} is executing role: ${this.registryProfile.role}`;
+  }
+  getProfile(): BeeProfile {
+    return this.registryProfile;
+  }
 }
 
 // 3. HoneyProducerBee Class (extends AdultBee)
