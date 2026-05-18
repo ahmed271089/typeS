@@ -1,6 +1,6 @@
 /**
  * SECTION 1: The Hive Registry (Basics & Core Types)
- * 
+ *
  * In this section, you will register the basic state of the honeybee colony
  * and create interfaces and type aliases for bee profiles and GPS coordinates.
  */
@@ -9,21 +9,20 @@
 // - Annotate 'hiveName' as a string (initialized to "Sovereign Swarm")
 // - Annotate 'population' as a number (initialized to 45000)
 // - Annotate 'isQueenPresent' as a boolean (initialized to true)
-export let hiveName: any = "Sovereign Swarm";
-export let population: any = 45000;
-export let isQueenPresent: any = true;
+export let hiveName: string = "Sovereign Swarm";
+export let population: number = 45000;
+export let isQueenPresent: boolean = true;
 
 // 2. Arrays & Tuples
 // - Annotate 'larvaeWeights' as an array of numbers.
-export let larvaeWeights: any = [4.2, 5.8, 10.5, 3.1, 12.0];
+export let larvaeWeights: number[] = [4.2, 5.8, 10.5, 3.1, 12.0];
 
 // - Define a Type Alias 'Position3D' representing a tuple [number, number, number]
 //   which stands for [latitude, longitude, altitude].
-export type Position3D = any;
+export type Position3D = [number, number, number];
 
 // - Annotate 'hiveLocation' as a 'Position3D' tuple (initialized to [36.8065, 10.1815, 250])
-export let hiveLocation: any = [36.8065, 10.1815, 250];
-
+export let hiveLocation: Position3D = [36.8065, 10.1815, 250];
 
 // 3. Interfaces
 // - Define an interface 'BeeProfile' representing a registered adult bee.
@@ -36,8 +35,13 @@ export let hiveLocation: any = [36.8065, 10.1815, 250];
 //   - healthScore: number (optional property)
 export interface BeeProfile {
   // TODO: Implement the interface properties here
+  id: number;
+  name: string;
+  age: number;
+  role: string;
+  specialization?: string;
+  healthScore?: number;
 }
-
 
 // 4. Typed Functions
 // - Implement 'isLarvaReadyForCocoon'. It should accept 'weight' as a number, and return a boolean.
