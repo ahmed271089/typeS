@@ -1,8 +1,8 @@
-import { BeeProfile, Position3D } from './01-basics';
+import { BeeProfile, Position3D } from "./01-basics";
 
 /**
  * SECTION 2: The Hive Hierarchy (OOP, Subclasses & Access Modifiers)
- * 
+ *
  * In this section, you will model the classes of the colony using TypeScript's
  * strict properties, access modifiers (public, private, protected, readonly),
  * and superclass construction.
@@ -22,8 +22,25 @@ import { BeeProfile, Position3D } from './01-basics';
 //     - Returns healthScore.
 export class BaseLarva {
   // TODO: Implement fields, constructor and methods
+  readonly age : number;
+  protected healthScore : number;
+  private foodSource : string;
+  constructor(age: number, healthScore: number, foodSource: string) {
+    this.age = age;
+    this.healthScore = healthScore;
+    this.foodSource = foodSource;
+  }
+  eat(amount: number): void {
+     this.healthScore += amount * 2;
+    if (this.healthScore > 100) {
+      this.healthScore = 100;
+    }
+  }
+  getHealth(): number {
+    return this.healthScore;
+  }
 }
-
+//????????????
 
 // 2. AdultBee Class (extends BaseLarva)
 // - Properties:
@@ -39,7 +56,6 @@ export class BaseLarva {
 export class AdultBee extends BaseLarva {
   // TODO: Implement AdultBee
 }
-
 
 // 3. HoneyProducerBee Class (extends AdultBee)
 // - Properties:
@@ -57,7 +73,6 @@ export class HoneyProducerBee extends AdultBee {
   // TODO: Implement HoneyProducerBee
 }
 
-
 // 4. PollenForager Class (extends AdultBee)
 // - Properties:
 //   - canFly: boolean (private property, initialized in constructor)
@@ -74,7 +89,6 @@ export class HoneyProducerBee extends AdultBee {
 export class PollenForager extends AdultBee {
   // TODO: Implement PollenForager
 }
-
 
 // 5. RoyalQueenBee Class (extends AdultBee)
 // - Properties:
