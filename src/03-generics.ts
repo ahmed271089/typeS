@@ -15,7 +15,24 @@
 //   - A method 'listItems(): T[]' to return a copy of the items list
 //   - A method 'size(): number' to return the count of items in storage
 export class ChamberStorage<T> {
-  // TODO: Implement ChamberStorage
+  private items:T[];
+  constructor(){
+    this.items=[]
+  }
+  
+  addItem(item: T):void{
+this.items.push(item)
+  }
+  getItem(index: number): T | undefined{
+   return this.items[index]
+
+  }
+  listItems(): T[]{
+    return [...this.items]
+  }
+  size():number{
+    return this.items.length
+  }
 }
 
 
@@ -26,7 +43,10 @@ export class ChamberStorage<T> {
 //   - description: string
 //   - urgency: 'LOW' | 'HIGH'
 export interface Task {
-  // TODO: Implement Task properties
+  id:number;
+  description: string;
+  urgency: 'LOW' | 'HIGH';
+
 }
 
 
@@ -40,5 +60,22 @@ export interface Task {
 //   - A method 'getHighPriorityTasks(): T[]' to filter and return all tasks with urgency 'HIGH'
 //   - A method 'size(): number' to return the count of tasks remaining
 export class HiveTaskRunner<T extends Task> {
-  // TODO: Implement HiveTaskRunner
+  private tasks:T[];
+  constructor(){
+    this.tasks=[]
+  }
+  queueTask(task: T): void{
+    this.tasks.push(task)
+  }
+  runNextTask(): T | undefined{
+   const firstTask= this.tasks.shift()
+   return firstTask
+
+  }
+  getHighPriorityTasks(): T[]{
+    return this.tasks.filter((task)=> task.urgency==="HIGH")
+  }
+  size():number{
+    return this.tasks.length
+  }
 }

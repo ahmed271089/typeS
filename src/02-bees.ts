@@ -62,10 +62,9 @@ export class AdultBee extends BaseLarva {
     healthScore: number,
     foodSource: string,
     profile: BeeProfile,
-    registryProfile: BeeProfile
   ) {
     super(age, healthScore, foodSource);
-    this.registryProfile=profile
+    this.registryProfile = profile;
   }
   performRole(): string {
     return `Bee ${this.registryProfile.name} is executing role: ${this.registryProfile.role}`;
@@ -89,19 +88,26 @@ export class AdultBee extends BaseLarva {
 //     - Returns the current count of honeyPotsCollected, and RESETS honeyPotsCollected to 0.
 export class HoneyProducerBee extends AdultBee {
   // TODO: Implement HoneyProducerBee
-  private honeyPotsCollected:number=0;
-  constructor(age: number, healthScore: number, foodSource: string, profile: BeeProfile){
-    super(age,healthScore,foodSource,profile);
+  private honeyPotsCollected: number = 0;
+  constructor(
+    age: number,
+    healthScore: number,
+    foodSource: string,
+    profile: BeeProfile,
+  ) {
+    super(age, healthScore, foodSource, profile);
   }
-  produceHoney(): void{
-    this.honeyPotsCollected++
-    if(this.healthScore <= 100){
-      this.healthScore += 2
+  produceHoney(): void {
+    this.honeyPotsCollected++;
+    if (this.healthScore <= 100) {
+      this.healthScore += 2;
     }
   }
-unloadHoney(): number{
-  return this.honeyPotsCollected=0}
-
+  unloadHoney(): number {
+    const collected = this.honeyPotsCollected;
+    this.honeyPotsCollected = 0;
+    return collected;
+  }
 }
 
 // 4. PollenForager Class (extends AdultBee)
@@ -119,6 +125,29 @@ unloadHoney(): number{
 //     - Returns treasureChest.
 export class PollenForager extends AdultBee {
   // TODO: Implement PollenForager
+  private canFly: boolean;
+  private treasureChest: string[];
+  constructor(
+    age: number,
+    healthScore: number,
+    foodSource: string,
+    profile: BeeProfile,
+    canFly: boolean,
+  ) {
+    super(age, healthScore, foodSource, profile);
+    this.canFly = canFly;
+    this.treasureChest = [];
+  }
+  forage(location: Position3D): void {
+    this.canFly === true
+      ? this.treasureChest.push(
+          `pollen-${location[0]}-${location[1]}-${location[2]}`,
+        )
+      : this.treasureChest;
+  }
+  getTreasure(): string[] {
+    return this.treasureChest;
+  }
 }
 
 // 5. RoyalQueenBee Class (extends AdultBee)
@@ -135,5 +164,18 @@ export class PollenForager extends AdultBee {
 //   - getWorkers(): AdultBee[]
 //     - Returns workerRegistry.
 export class RoyalQueenBee extends AdultBee {
-  // TODO: Implement RoyalQueenBee
+  private workerRegistry: AdultBee[];
+  constructor(age: number, healthScore: number, foodSource: string, profile: BeeProfile){
+    super(age,healthScore,foodSource,profile);
+this.workerRegistry=[];
+  }
+  layEggs(count: number): string{
+    return `Queen ${this.registryProfile.name} laid ${count} larvae`
+  }
+  registerWorker(worker: AdultBee): void{
+    this.workerRegistry.push(worker)
+  }
+  getWorkers(): AdultBee[]{
+    return this.workerRegistry;
+  }
 }
