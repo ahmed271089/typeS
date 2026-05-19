@@ -62,8 +62,10 @@ export class AdultBee extends BaseLarva {
     healthScore: number,
     foodSource: string,
     profile: BeeProfile,
+    registryProfile: BeeProfile
   ) {
     super(age, healthScore, foodSource);
+    this.registryProfile=profile
   }
   performRole(): string {
     return `Bee ${this.registryProfile.name} is executing role: ${this.registryProfile.role}`;
@@ -87,6 +89,19 @@ export class AdultBee extends BaseLarva {
 //     - Returns the current count of honeyPotsCollected, and RESETS honeyPotsCollected to 0.
 export class HoneyProducerBee extends AdultBee {
   // TODO: Implement HoneyProducerBee
+  private honeyPotsCollected:number=0;
+  constructor(age: number, healthScore: number, foodSource: string, profile: BeeProfile){
+    super(age,healthScore,foodSource,profile);
+  }
+  produceHoney(): void{
+    this.honeyPotsCollected++
+    if(this.healthScore <= 100){
+      this.healthScore += 2
+    }
+  }
+unloadHoney(): number{
+  return this.honeyPotsCollected=0}
+
 }
 
 // 4. PollenForager Class (extends AdultBee)
