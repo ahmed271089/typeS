@@ -1,6 +1,6 @@
 /**
  * SECTION 5: Foraging Dispatcher (Asynchronous Operations & Promises)
- * 
+ *
  * In this section, you will write asynchronous TypeScript code using Promises,
  * async/await, custom exception types, and mock services to coordinate a squad.
  */
@@ -10,26 +10,29 @@
 //   - temperature: number
 //   - windSpeed: number
 //   - status: 'SAFE' | 'WARNING' | 'DANGEROUS'
-export type WeatherReport = any; // TODO: Replace 'any'
-
+export type WeatherReport = {
+  temperature: number;
+  windSpeed: number;
+  status: "SAFE" | "WARNING" | "DANGEROUS";
+};
 
 // 2. WeatherError Subclass
 // - Define a class 'WeatherError' that extends the standard JavaScript 'Error' class.
 // - Constructor:
 //   - Accepts (message: string) and calls super(message)
 export class WeatherError extends Error {
-  // TODO: Implement custom Error subclass
+  constructor(message: string) {
+    super(message);
+  }
 }
-
 
 // 3. WeatherService Interface
 // - Define an interface 'WeatherService' representing an environmental API sensor.
 // - It should have a method:
 //   - getWeather(locationName: string): Promise<WeatherReport>
 export interface WeatherService {
-  // TODO: Implement getWeather signature
+  getWeather(locationName: string): Promise<WeatherReport>;
 }
-
 
 // 4. HiveDispatcher Class
 // - Implement a class 'HiveDispatcher' that schedules foraging squads.
@@ -47,5 +50,19 @@ export interface WeatherService {
 //          - If 'WARNING': Return "Warning: Deployed <foragerNames.length> foragers with safety gear"
 //          - If 'SAFE': Return "Success: Deployed <foragerNames.length> foragers"
 export class HiveDispatcher {
-  // TODO: Implement HiveDispatcher
+  private weatherService: WeatherService;
+  constructor(weatherService: WeatherService){
+this.weatherService=weatherService
+  }
+  async dispatchSquad(locationName: string, foragerNames: string[]): Promise<string>{
+    const report= await this.weatherService.getWeather(locationName)
+
+    switch(report.status){
+      case "DANGEROUS": throw new WeatherError("Dangerous weather: dispatch aborted");
+      case "WARNING": return `Warning: Deployed ${foragerNames.length} foragers with safety gear`;
+      case "SAFE": return `Success: Deployed ${foragerNames.length} foragers`
+    }
+
+  }
+
 }
