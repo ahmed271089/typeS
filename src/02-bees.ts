@@ -20,10 +20,21 @@ import { BeeProfile, Position3D } from "./01-basics";
 //     - Increments healthScore by amount * 2. If it exceeds 100, set healthScore to 100.
 //   - getHealth(): number
 //     - Returns healthScore.
+/*//////////////////////////////////////////////////////////////////////////////
+=>npm install -g ts-node typescript
+
+=>readonly means the value can only be set once and cannot be changed afterward.
+
+=>protected allows access inside the class and its child classes, but not outside.
+
+=>private allows access only inside the same class and hides it completely from other classes.
+
+=>In TypeScript (and JavaScript), void means a function does not return any value.
+*//////////////////////////////////////////////////////////////////////////
 export class BaseLarva {
   // TODO: Implement fields, constructor and methods
   readonly age: number;
-  protected healthScore: number; //:?
+  protected healthScore: number; 
   private foodSource: string;
   constructor(age: number, healthScore: number, foodSource: string) {
     this.age = age;
@@ -33,7 +44,7 @@ export class BaseLarva {
   eat(amount: number): void {
     this.healthScore += amount * 2;
     if (this.healthScore > 100) {
-      //return ?
+      
       this.healthScore = 100;
     }
   }
@@ -41,7 +52,12 @@ export class BaseLarva {
     return this.healthScore;
   }
 }
-//????????????
+/*
+let test1=new BaseLarva(2, 50, "honey")
+test1.eat(50)
+
+console.log(test1.getHealth());
+*/
 
 // 2. AdultBee Class (extends BaseLarva)
 // - Properties:
@@ -55,7 +71,7 @@ export class BaseLarva {
 //   - getProfile(): BeeProfile
 //     - Returns registryProfile.
 export class AdultBee extends BaseLarva {
-  // TODO: Implement AdultBee
+  
   protected registryProfile: BeeProfile;
   constructor(
     age: number,
@@ -73,6 +89,22 @@ export class AdultBee extends BaseLarva {
     return this.registryProfile;
   }
 }
+///////////////////////////////////////////////////////////////
+/*
+let test = new AdultBee(
+  2,
+  50,
+  "honey",
+  {
+    id:4,
+    name: "Maya",
+    age:2,
+    role: "Worker"
+  }
+);
+console.log(test);
+*/
+///////////////////////////////////////////////////////////////////
 
 // 3. HoneyProducerBee Class (extends AdultBee)
 // - Properties:
@@ -87,7 +119,7 @@ export class AdultBee extends BaseLarva {
 //   - unloadHoney(): number
 //     - Returns the current count of honeyPotsCollected, and RESETS honeyPotsCollected to 0.
 export class HoneyProducerBee extends AdultBee {
-  // TODO: Implement HoneyProducerBee
+  
   private honeyPotsCollected: number = 0;
   constructor(
     age: number,
