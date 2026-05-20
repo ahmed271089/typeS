@@ -15,7 +15,13 @@ import { BeeProfile } from './01-basics';
 export type StrictRegistryConfig<T> =  {
   readonly [K in keyof T]-?: T[K];
 };
+////////////////////////////
+/*
+readonly makes properties unchangeable after they are set.
 
+[K in keyof T]-?: T[K] is a mapped type that loops through all properties of T, removes optional ?, and makes all properties required.
+*/
+////////////////////////////
 
 // 2. Conditional Type: FilterLaborBees
 // - Define a contract interface 'LaborBeeType' representing a bee's ability to work:
